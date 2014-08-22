@@ -16,6 +16,8 @@
 
 from setuptools import setup, find_packages
 import subprocess
+from Cython.Build import cythonize
+
 revision = subprocess.check_output("./bin/revision")
 
 setup(name="transit-python",
@@ -24,5 +26,5 @@ setup(name="transit-python",
       author="Cognitect",
       url="https://github.com/cognitect/transit-python",
       packages=find_packages(),
-      install_requires=["python-dateutil", "msgpack-python"])
-
+      install_requires=["python-dateutil", "msgpack-python"],
+      ext_modules=cythonize("transit/*.pyx"))

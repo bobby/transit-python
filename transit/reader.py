@@ -14,7 +14,7 @@
 
 import json
 import msgpack
-from decoder import Decoder
+from cdecoder import Decoder
 from collections import OrderedDict
 
 class Reader(object):
