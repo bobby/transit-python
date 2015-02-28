@@ -12,11 +12,10 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-from constants import *
 from class_hash import ClassDict
 from transit_types import Keyword, Symbol, URI, frozendict, TaggedValue, Link, Boolean
 import uuid
-import datetime, time
+import datetime
 from dateutil import tz
 from math import isnan
 import struct
@@ -117,17 +116,6 @@ class ArrayHandler(object):
         return a
     @staticmethod
     def string_rep(a):
-        return None
-
-class MapHandler(object):
-    @staticmethod
-    def tag(m):
-        return 'map'
-    @staticmethod
-    def rep(m):
-        return m
-    @staticmethod
-    def string_rep(m):
         return None
 
 class KeywordHandler(object):

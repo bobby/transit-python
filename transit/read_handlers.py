@@ -13,7 +13,6 @@
 ## limitations under the License.
 
 import transit_types
-from constants import *
 import uuid
 import ctypes
 import dateutil.parser

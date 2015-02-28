@@ -12,7 +12,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-import collections
+from collections import Mapping, Hashable
 
 class Keyword(object):
     def __init__(self, value):
@@ -124,7 +124,6 @@ class URI(TaggedValue):
     def __init__(self, rep):
         TaggedValue.__init__(self, "uri", rep)
 
-from collections import Mapping, Hashable, namedtuple
 class frozendict(Mapping, Hashable):
     def __init__(self, *args, **kwargs):
         self._dict = dict(*args, **kwargs)

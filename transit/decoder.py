@@ -13,7 +13,7 @@
 ## limitations under the License.
 
 import transit_types
-from constants import *
+from constants import ESC, SUB, RES, MAP_AS_ARR
 from collections import OrderedDict
 from helpers import pairs
 import read_handlers as rh
