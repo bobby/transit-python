@@ -2,3 +2,8 @@
 *.swp
 apidoc/_build
 dist/
+.DS_Store
+build/
+html/
+scratch/
+transit_python.egg-info/
