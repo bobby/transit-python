@@ -32,7 +32,7 @@ def regression(name, value):
             w = Writer(io, "json")
             w.write(in_data)
             r = Reader("json")
-            out_data = r.read(StringIO(io.getvalue()))
+            out_data = r.read(StringIO(io.getvalue())).next()
             self.assertEqual(in_data, out_data)
 
     globals()["test_" + name + "_json"] = RegressionTest
@@ -58,7 +58,7 @@ class BooleanTest(unittest.TestCase):
             w.write((True, False))
             r = Reader(protocol)
             io.seek(0)
-            out_data = r.read(io)
+            out_data = r.read(io).next()
             assert out_data[0] == true
             assert out_data[1] == false
 

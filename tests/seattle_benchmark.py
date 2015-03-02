@@ -19,7 +19,7 @@ from StringIO import StringIO
 def run_tests(data):
     datas = StringIO(data)
     t = time.time()
-    JsonUnmarshaler().load(datas)
+    JsonUnmarshaler().loadeach(datas).next()
     et = time.time()
     datas = StringIO(data)
     tt = time.time()

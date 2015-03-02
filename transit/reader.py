@@ -28,14 +28,15 @@ class Reader(object):
             self.reader = JsonUnmarshaler()
         else:
             self.reader = MsgPackUnmarshaler()
-            self.unpacker = self.reader.unpacker
 
     def read(self, stream):
         """Given a readable file descriptor object (something `load`able by
         msgpack or json), read the data, and return the Python representation
         of the contents. One-shot reader.
         """
-        return self.reader.load(stream)
+        while True:
+            for o in self.reader.loadeach(stream):
+                yield o
 
     def register(self, key_or_tag, f_val):
         """Register a custom transit tag and decoder/parser function for use
@@ -43,15 +44,13 @@ class Reader(object):
         """
         self.reader.decoder.register(key_or_tag, f_val)
 
-    def readeach(self, stream, **kwargs):
+    def _readeach(self, stream, **kwargs):
         """Temporary hook for API while streaming reads are in experimental
         phase. Read each object from stream as available with generator. 
         JSON blocks indefinitely waiting on JSON entities to arrive. MsgPack
         requires unpacker property to be fed stream using unpacker.feed()
         method.
         """
-        for o in self.reader.loadeach(stream):
-            yield o
 
 class JsonUnmarshaler(object):
     """The top-level Unmarshaler used by the Reader for JSON payloads.  While
@@ -78,6 +77,10 @@ class MsgPackUnmarshaler(object):
     def load(self, stream):
         return self.decoder.decode(msgpack.load(stream, object_pairs_hook=OrderedDict))
 
+
     def loadeach(self, stream):
-        for o in self.unpacker:
-            yield self.decoder.decode(o)
+        u = self.unpacker
+        while True:
+            u.feed(stream.read(1))
+            for o in self.unpacker:
+                yield self.decoder.decode(o)

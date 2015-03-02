@@ -34,17 +34,17 @@ def exemplar(name, val):
 
         def test_json(self):
             with open("../transit-format/examples/0.8/simple/" + name + ".json", 'r') as stream:
-                data = Reader(protocol="json").read(stream)
+                data = Reader(protocol="json").read(stream).next()
                 self.assertEqual(val, data)
 
         def test_msgpack(self):
             with open("../transit-format/examples/0.8/simple/" + name + ".mp", 'r') as stream:
-                data = Reader(protocol="msgpack").read(stream)
+                data = Reader(protocol="msgpack").read(stream).next()
                 self.assertEqual(val, data)
 
         def test_json_verbose(self):
             with open("../transit-format/examples/0.8/simple/" + name + ".verbose.json", 'r') as stream:
-                data = Reader(protocol="json_verbose").read(stream)
+                data = Reader(protocol="json_verbose").read(stream).next()
                 self.assertEqual(val, data)
 
         def test_reencode_msgpack(self):
@@ -55,7 +55,7 @@ def exemplar(name, val):
             io = StringIO(s)
 
             reader = Reader(protocol="msgpack")
-            newval = reader.read(io)
+            newval = reader.read(io).next()
             self.assertEqual(val, newval)
 
         def test_reencode_json(self):
@@ -67,7 +67,7 @@ def exemplar(name, val):
             # print(s)
             io = StringIO(s)
             reader = Reader(protocol="json")
-            newval = reader.read(io)
+            newval = reader.read(io).next()
             self.assertEqual(val, newval)
 
         # test json verbose
@@ -78,7 +78,7 @@ def exemplar(name, val):
             s = io.getvalue()
             io = StringIO(s)
             reader = Reader(protocol="json_verbose")
-            newval = reader.read(io)
+            newval = reader.read(io).next()
             self.assertEqual(val, newval)
 
         def assertEqual(self, val, data):
